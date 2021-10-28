@@ -10,10 +10,20 @@ class CountVectorizer:
         self.lowercase = lowercase
         self._vocabulary = {}
 
-    def get_feature_names(self):
+    def get_feature_names(self) -> list:
+        '''
+        Возвращает список уникальных слов из всего корпуса
+        '''
         return list(self._vocabulary.keys())
 
-    def fit_transform(self, corpus):
+    def fit_transform(self, corpus: list) -> list:
+        '''
+        Функуия принимает на вход корпус(список) состоящий из текстов.
+        Возвращает список списков где подсчитывается число слов
+        в тексте из списка уникальных слов.
+        if corpus = ['one two', 'one']
+        out: [[1, 1], [1, 0]]
+        '''
         if self.lowercase:
             corpus = [text.lower() for text in corpus]
 
@@ -56,4 +66,5 @@ if __name__ == '__main__':
 
     test3 = ['one two three', 'one two', 'one']
     vectorizer = CountVectorizer()
-    assert vectorizer.fit_transform(test3) == [[1, 1, 1], [1, 1, 0], [1, 0, 0]] and vectorizer.get_feature_names() == ['one', 'two', 'three']
+    assert vectorizer.fit_transform(test3) == [[1, 1, 1], [1, 1, 0], [1, 0, 0]] and \
+           vectorizer.get_feature_names() == ['one', 'two', 'three']
